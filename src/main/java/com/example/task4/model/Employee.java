@@ -43,8 +43,7 @@ public class Employee {
         this.effectiveDate = effectiveDate;
     }
 
-    // Все геттеры и сеттеры остаются прежними
-    // ...
+
 
     public Long getId() {
         return id;
