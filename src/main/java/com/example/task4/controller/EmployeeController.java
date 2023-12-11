@@ -5,9 +5,9 @@ import com.example.task4.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.persistence.EntityNotFoundException;
 
-import java.util.Optional;
-
+import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -20,14 +20,15 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
         Employee savedEmployee = employeeService.addEmployee(employee);
         return ResponseEntity.ok(savedEmployee);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
-        Optional<Employee> employee = employeeService.getEmployeeById(id);
-        return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Employee employee = employeeService.getEmployeeById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Сотрудник с ID " + id + " не найден"));
+        return ResponseEntity.ok(employee);
     }
 }
