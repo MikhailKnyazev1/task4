@@ -1,7 +1,6 @@
 package com.example.task4.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 @Entity
@@ -12,23 +11,11 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Имя не должно быть пустым")
     private String firstName;
-
-    @NotBlank(message = "Фамилия не должна быть пустой")
     private String lastName;
-
-    @Min(value = 18, message = "Возраст должен быть не менее 18 лет")
-    @Max(value = 65, message = "Возраст должен быть не более 65 лет")
     private int age;
-
-    @NotBlank(message = "Профессия не должна быть пустой")
     private String profession;
-
-    @NotBlank(message = "Компания не должна быть пустой")
     private String company;
-
-    @NotNull(message = "Дата вступления в должность не должна быть пустой")
     private LocalDate effectiveDate;
 
     public Employee() {
@@ -43,8 +30,7 @@ public class Employee {
         this.effectiveDate = effectiveDate;
     }
 
-
-
+    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
